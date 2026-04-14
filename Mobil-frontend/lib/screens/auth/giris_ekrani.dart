@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '../../main.dart';
 import '../../widgets/custom_text_field.dart';
+import '../../core/constants.dart';
 
 class GirisEkrani extends StatefulWidget {
   const GirisEkrani({super.key});
@@ -30,7 +31,7 @@ class _GirisEkraniState extends State<GirisEkrani> {
     setState(() => _isLoading = true);
 
     try {
-      final url = Uri.parse('http://localhost:5000/api/Account/authenticate');
+      final url = Uri.parse('${AppConstants.apiUrl}/Account/authenticate');
 
       final response = await http.post(
         url,

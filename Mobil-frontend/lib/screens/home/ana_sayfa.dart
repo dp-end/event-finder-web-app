@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '../../main.dart';
 import '../../widgets/sol_yan_menu.dart';
+import '../../core/constants.dart';
 import '../../widgets/etkinlik_karti.dart';
 
 class AnaSayfa extends StatefulWidget {
@@ -47,7 +48,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
       if (!_sadeceUcretsiz && _maxFiyat < 500) params['maxPrice'] = _maxFiyat.toStringAsFixed(0);
       if (_seciliZaman != 'Tümü') params['timePeriod'] = _seciliZaman;
 
-      final url = Uri.parse('http://localhost:5000/api/Events').replace(queryParameters: params.isEmpty ? null : params);
+      final url = Uri.parse('${AppConstants.apiUrl}/Events').replace(queryParameters: params.isEmpty ? null : params);
 
       final response = await http.get(
         url,

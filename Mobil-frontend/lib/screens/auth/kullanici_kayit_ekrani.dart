@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import '../../widgets/custom_text_field.dart';
+import '../../core/constants.dart';
 
 class KullaniciKayitEkrani extends StatefulWidget {
   const KullaniciKayitEkrani({super.key});
@@ -47,7 +48,7 @@ class _KullaniciKayitEkraniState extends State<KullaniciKayitEkrani> {
     setState(() => _isLoading = true);
 
     try {
-      final url = Uri.parse('http://localhost:5000/api/Account/register');
+      final url = Uri.parse('${AppConstants.apiUrl}/Account/register');
 
       final response = await http.post(
         url,

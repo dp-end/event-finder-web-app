@@ -60,9 +60,11 @@ export class RegisterStudent {
         firstName: formValues.firstName,
         lastName: formValues.lastName,
         email: formValues.email,
-        userName: formValues.email.split('@')[0], // E-postanın başını kullanıcı adı yaptık
+        userName: formValues.email.split('@')[0],
         password: formValues.password,
-        confirmPassword: formValues.confirmPassword
+        confirmPassword: formValues.confirmPassword,
+        university: formValues.university,
+        department: formValues.department
       };
 
       this.authService.register(requestPayload).subscribe({
@@ -75,9 +77,18 @@ export class RegisterStudent {
           }, 2000);
         },
         error: (err) => {
-          console.error('Kayıt Hatası:', err);
-          // Backend'den gelen spesifik bir hata varsa (örn: Bu mail zaten kayıtlı), onu gösteririz
-          this.errorMessage = err.error?.message || 'Kayıt sırasında bir hata oluştu. Lütfen bilgilerinizi kontrol edin.';
+          console.error('Kayıt Hatası (status):', err.status);
+          console.error('Kayıt Hatası (body):', err.error);
+          // err.error text/plain veya JSON olabilir
+          let msg = 'Kayıt sırasında bir hata oluştu.';
+          if (typeof err.error === 'string' && err.error.length > 0) {
+            try { msg = JSON.parse(err.error)?.Message || err.error; } catch { msg = err.error; }
+          } else if (err.error?.Message) {
+            msg = err.error.Message;
+          } else if (err.error?.errors) {
+            msg = Object.values(err.error.errors).flat().join(' ');
+          }
+          this.errorMessage = msg;
         }
       });
 

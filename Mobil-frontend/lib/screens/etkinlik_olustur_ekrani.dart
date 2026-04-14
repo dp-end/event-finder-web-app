@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '../main.dart';
+import '../core/constants.dart';
 
 class EtkinlikOlusturEkrani extends StatefulWidget {
   const EtkinlikOlusturEkrani({super.key});
@@ -80,7 +81,7 @@ class _EtkinlikOlusturEkraniState extends State<EtkinlikOlusturEkrani> {
       }
 
       final token = CampusHubApp.tokenNotifier.value;
-      final url = Uri.parse('http://localhost:5000/api/Events');
+      final url = Uri.parse('${AppConstants.apiUrl}/Events');
 
       final body = {
         'title':       _baslikController.text.trim(),

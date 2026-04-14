@@ -80,9 +80,7 @@ namespace CleanArchitecture.Infrastructure
                     OnAuthenticationFailed = c =>
                     {
                         c.NoResult();
-                        c.Response.StatusCode = 500;
-                        c.Response.ContentType = "text/plain";
-                        return c.Response.WriteAsync(c.Exception.ToString());
+                        return System.Threading.Tasks.Task.CompletedTask;
                     },
                     OnChallenge = context =>
                     {
